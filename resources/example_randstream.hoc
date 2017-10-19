@@ -1,0 +1,36 @@
+// Code adapted from basic_white_noise written by Ted Carnevale by Aman Aberra
+// Original code uploaded to NEURON forums (http://www.neuron.yale.edu/phpBB/viewtopic.php?f=8&t=2986)
+
+load_file("nrngui.hoc")
+load_file("ranstream.hoc")
+
+
+noise_mean = 0 // noise mean value (nA)
+noise_std = 1.5 // noise standard deviation (nA)
+
+create soma // soma with default properties
+soma insert hh
+
+
+objref noise_stim, rs
+random_stream_offset_ = 1000*40 // assumes dt = 0.025
+  // adj streams will be correlated by this offset
+  // assume longest simulation will be 1000 ms
+
+// create and seed the generators before specifying their distributions
+inoise_random_low_start_ = 1
+mcell_ran4_init(inoise_random_low_start_)
+// use normal distribution
+rs = new RandomStream(0)
+rs.r.normal(0,1) // mean 0, variance 1
+rs.start()
+
+// finally create and attach the InUnis
+// and associate each with its random stream generator
+// Insert random current injection assoc. with rs
+soma noise_stim = new InGauss(0.5)
+noise_stim.del=0
+noise_stim.dur=1e5
+noise_stim.mean = noise_mean
+noise_stim.stdev = noise_std
+noise_stim.noiseFromRandom(rs.r)
