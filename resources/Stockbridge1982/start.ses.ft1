@@ -1,0 +1,15 @@
+ParmFitness: Unnamed multiple run protocol
+	FitnessFunction: A
+		a*(1 - exp(-b*$1))
+		RegionFitness:
+
+	FitnessFunction: B
+		ab*(1 - exp(-bb*$1))
+		RegionFitness:
+
+	Parameters:
+		"a", 9.07761, 1e-09, 1e+09, 1, 1
+		"b", 0.538651, 1e-09, 1e+09, 1, 1
+		"ab", 47.1565, 1e-09, 1e+09, 1, 1
+		"bb", 0.21676, 1e-09, 1e+09, 1, 1
+End ParmFitness

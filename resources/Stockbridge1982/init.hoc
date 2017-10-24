@@ -1,0 +1,42 @@
+load_file("nrngui.hoc")
+taudt=1
+
+func C() { // n
+	return (1 - exp(-$1*taudt))/(1 - exp(-taudt))
+}
+
+func T() {
+	return C($1)^4
+}
+
+func F() { return T($1) - 1 }
+
+i=0
+proc table1() {
+	printf("DT/tau\tF1\tF2\tF3\tF1000\n")
+	for case(&taudt, 1e-9, .5, .73, .75, 1, 1e9) {
+		printf("%-5.2g  ", taudt)
+		for case(&i, 1, 2, 3, 1000) {
+			printf(" %-7.1f", F(i))
+		}
+		printf("\n")
+	}
+}
+
+objref Avec, Bvec, Nvec, g
+{
+Nvec = new Vector(11)
+Nvec.indgen(1,1)
+Avec = Nvec.c
+Bvec = Nvec.c
+{taudt = 0.83 Avec.apply("F")}
+{taudt = 0.50 Bvec.apply("F")}
+
+load_file("start.ses")
+g = Graph[0]
+Avec.mark(g, Nvec.c.sub(1), "+", 10, 1)
+Bvec.mark(g, Nvec.c.sub(1), "+", 10, 2)
+}
+
+
+table1()

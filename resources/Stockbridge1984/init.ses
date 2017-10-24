@@ -1,0 +1,34 @@
+objectvar save_window_, rvp_
+objectvar scene_vector_[2]
+objectvar ocbox_, ocbox_list_, scene_, scene_list_
+{ocbox_list_ = new List()  scene_list_ = new List()}
+{pwman_place(0,0,0)}
+
+//Begin SingleCompartment
+{
+load_file("single.hoc")
+}
+ocbox_ = new SingleCompartment(0)
+ocbox_.inserter = new Inserter(0)
+{object_push(ocbox_.inserter)}
+{
+mt.select("cab") i = mt.selected()
+ms[i] = new MechanismStandard("cab")
+mstate[i]= 1
+maction(i)
+}
+{object_pop() doNotify()}
+{object_push(ocbox_)}
+{inserter.v1.map()}
+{endbox()}
+{object_pop() doNotify()}
+{
+ocbox_ = ocbox_.vbox
+ocbox_.map("SingleCompartment", 374, 0, 110.7, 164.7)
+}
+objref ocbox_
+//End SingleCompartment
+
+{WindowMenu[0].ses_gid(1, 0, 0, "Inserter")}
+objectvar scene_vector_[1]
+{doNotify()}

@@ -1,0 +1,10 @@
+load_file("init.hoc")
+objref cavec
+cavec = new Vector()
+cavec.record(&ca_cab[0](.5))
+camax = 1
+load_file(1, "fig6.ses")
+cvode_active(1)
+run()
+camax = cavec.max()
+

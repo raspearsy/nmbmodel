@@ -1,0 +1,21 @@
+Stockbridge and Moore. (1984) Dynamics of intracellular calcium and its possible
+relationship to phasic transmitter release and facilitation at the frog
+neuromuscular junction.
+J. Neurosci. 4: 803-811
+
+The model semiquantitatively reproduces figures 2-6. Slight
+discrepancies are due to the radial spatial discretization process. In
+this model, the second order correct calcium concentrations are located at
+i*100 angstroms from the cylindrical membrane. i.e. the 0th compartment
+is membrane adjacent instead of at 50Angstroms and has half the volume
+of other compartments. The NANN-1 th compartment contains the remainder of
+the cell volume. Values for the pump magnitudes (ke in cm/sec) are multiplied
+by the (1+beta) factor for consistency with the paper. It was not made clear
+in the paper that although (1+beta) can be considered a scale factor for the
+diffusion constant, in that interpretation it must also scale source and sink fluxes.
+Apparently only the source flux was scaled.
+
+The NEURON implementation of this model was prepared by Michael Hines.
+Questions about details of this implementation should be addressed to him
+at michael.hines@yale.edu.
+

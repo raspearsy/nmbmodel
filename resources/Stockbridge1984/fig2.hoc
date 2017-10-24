@@ -1,0 +1,12 @@
+load_file("init.hoc")
+load_file(1, "fig2.ses")
+save_window_.vector(nann, &xvec.x[0], &ca_cab[0](.5))
+run()
+
+xpanel("Beta")
+xlabel("Choose value of Beta for run")
+xradiobutton("25", "beta_cab = 25 run()", 1)
+xradiobutton("60", "beta_cab = 60 run()")
+xradiobutton("200", "beta_cab = 200 run()")
+xradiobutton("600", "beta_cab = 600 run()")
+xpanel(550,1)

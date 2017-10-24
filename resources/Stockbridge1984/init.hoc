@@ -1,0 +1,7 @@
+load_file("nrngui.hoc")
+load_file("init.ses")
+nann = 99
+objref xvec
+xvec = new Vector(nann)
+xvec.indgen(.01)
+xvec.x[nann-1] = 1

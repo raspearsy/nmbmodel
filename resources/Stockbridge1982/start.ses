@@ -1,0 +1,40 @@
+load_file("nrngui.hoc")
+objectvar save_window_, rvp_
+objectvar scene_vector_[5]
+objectvar ocbox_, ocbox_list_, scene_, scene_list_
+{ocbox_list_ = new List()  scene_list_ = new List()}
+{pwman_place(0,0,0)}
+
+//Begin MulRunFitter[0]
+{
+load_file("mulfit.hoc", "MulRunFitter")
+}
+{
+ocbox_ = new MulRunFitter(1)
+}
+{object_push(ocbox_)}
+{
+version(5)
+ranfac = 2
+fspec = new File("start.ses.ft1")
+fdat = new File("start.ses.fd1")
+read_data()
+build()
+}
+{object_pop()}
+{
+ocbox_.map("MulRunFitter[0]", 380, 289, 360.96, 199.68)
+}
+objref ocbox_
+//End MulRunFitter[0]
+
+{
+save_window_ = new Graph(0)
+save_window_.size(0,10,0,50)
+scene_vector_[2] = save_window_
+{save_window_.view(0, 0, 10, 50, 384, 23, 300.48, 200.32)}
+save_window_.label(6.24601, 39.2811, "B", 1, 1, 0, 0, 2)
+save_window_.label(6.28434, 11.3898, "A", 1, 1, 0, 0, 1)
+}
+objectvar scene_vector_[1]
+{doNotify()}

@@ -1,0 +1,20 @@
+load_file("init.hoc")
+load_file(1, "fig5.ses")
+cvode_active(1)
+run()
+
+
+objref glist
+glist = new List("Graph")
+
+for i=glist.count-2, glist.count-1 {
+	glist.object(i).exec_menu("Keep Lines")
+}
+for case(&t2_cab, 5, 10, 20, 50, 100) {
+	run()
+}
+for i=glist.count-2, glist.count-1 {
+	glist.object(i).exec_menu("Keep Lines")
+}
+
+

@@ -1,0 +1,34 @@
+load_file("init.hoc")
+
+xpanel("Figures for Stockbridge and Moore, 1984")
+xlabel("Figures for Stockbridge and Moore, 1984")
+xradiobutton("Fig 2", "restart(\"fig2\")", 1)
+xradiobutton("Fig 3", "restart(\"fig3\")")
+xradiobutton("Fig 4", "restart(\"fig4\")")
+xradiobutton("Fig 5", "restart(\"fig5\")")
+xradiobutton("Fig 6 : Click 'Plot' in panel below", "restart(\"fig6\")")
+xpanel(775,1)
+
+pwmcnt = PWManager[0].count // the initial gui should not be dismissed
+objref glist, cavec
+
+load_file(1, "fig2.hoc")
+
+proc restart() {local i
+	objref graphItem, save_window_
+	objref glist, cavec
+	for i=0, n_graph_lists-1 {
+		graphList[i].remove_all()
+	}
+	flush_list.remove_all()
+	fast_flush_list.remove_all()
+	doNotify()
+	for (i= PWManager[0].count-1; i >= pwmcnt; i -= 1) {
+		PWManager[0].close(i)
+		doNotify()
+	}
+	t2_cab = 1e9
+	cvode_active(0)
+	sprint(tstr, "%s.hoc", $s1)
+	load_file(1, tstr)
+}

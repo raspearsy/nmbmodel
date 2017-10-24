@@ -1,0 +1,12 @@
+load_file("init.hoc")
+load_file(1, "fig4.ses")
+save_window_.vector(nann, &xvec.x[0], &ca_cab[0](.5))
+cvode_active(1)
+run()
+
+xpanel("Pump")
+xlabel("Choose pump rate")
+xradiobutton("pump rate = 10^-3 cm/sec", "ke_cab = 1e-3*(1+beta_cab) run()", 1)
+xradiobutton("pump rate = 10^-2 cm/sec", "ke_cab = 1e-2*(1+beta_cab) run()")
+xpanel(550, 2)
+
