@@ -1,0 +1,13 @@
+obfunc import_v() { localobj file, voltages
+	file = new File()
+	file.ropen($s1)
+	voltages = new Vector()
+	voltages.scanf(file)
+
+	printf("\n%s", $s1)
+	for i = 0, voltages.size-1 {
+		print(voltages.x[i])
+	}
+
+	return voltages
+}
