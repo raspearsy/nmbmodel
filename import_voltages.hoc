@@ -5,9 +5,10 @@ obfunc import_v() { localobj file, voltages
 	voltages.scanf(file)
 
 	printf("\n%s\n", $s1)
-	for i = 0, voltages.size-1 {
-		print(voltages.x[i])
+	for i=0, voltages.ncol-1 {
+		for j=0, voltages.nrow-1 {
+			print(voltages.x[j][i])
+		}
 	}
-
 	return voltages
 }
