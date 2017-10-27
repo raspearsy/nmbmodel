@@ -1,0 +1,111 @@
+// Demonstration of extracellular stimulation
+// Leo Medina 2013-10-28 
+// Updated by Aman Aberra 2017-09-04
+load_file("nrngui.hoc")
+load_file("import_voltages.hoc")
+
+
+// ----------------------- Global Variables ----------------------------------
+
+//Fiber
+D = 20          // fiber diameter in um
+//N_NODES = 21    //number of nodes
+INL = 100*D     //internodal length in um
+rhoa = 100      // axial resistivity (ohm-cm)
+Vo = -65        //initial potential
+
+dt = 0.2
+
+// ----------------------- Creating Axon -------------------------------------
+
+strdef s1
+s1 = "testfile.txt"
+objref voltages
+voltages = import_v(s1)
+
+N_NODES = voltages.nrow()    //number of nodes
+
+create node[N_NODES]
+// initializing axon
+proc initialize(){
+  for i=0, N_NODES-1 {
+		node[i]{
+			nseg = 1
+			diam = 0.7*D  // node diameter (um)
+			L    = 1		 // node length (um)
+			Ra   = rhoa*( (L + INL) / L )  // trick to account for internodal resistance
+			cm   = 1							 // specific membrane capacitance (uF/cm^2)			
+			insert hh      		
+			insert extracellular   // for extracellular stimulation 
+		}
+	}
+
+  for i=0, N_NODES-2 {
+		connect node[i](1), node[i+1](0)
+  }
+	finitialize(Vo)
+}
+initialize()
+
+// for recording membrane potentials
+objref vol_mem[N_NODES]
+for i=0, N_NODES-1{
+	vol_mem[i] = new Vector(voltages.ncol,0)
+  vol_mem[i].record(&node[i].v(0.5))	
+}
+
+objref vol_mem_transposed[voltages.ncol]
+proc transpose_vol_mem() {
+	for i = 0, voltages.ncol {
+		vol_mem_transposed[i] = new Vector(voltages.nrow, 0)
+		for j = 0, voltages.nrow {
+			vol_mem_transposed[i].x[j] = vol_mem[j].x[i]
+		}
+	}
+}
+
+// time integrate with constant time step size
+proc stimulate(){
+	finitialize(Vo)
+	for j = 0, voltages.ncol-1 {	
+		for i=0, N_NODES-1 {
+			node[i].e_extracellular(0.5) = voltages.x[i][j]	
+		}
+	  fadvance()		
+	}	
+}
+
+// ----------------------- Debugging -----------------------------------------
+stimulate()
+//AMPLITUDE = AMPLITUDE - 25e-3
+//dummystim.amp = AMPLITUDE
+//stimulate()
+//print(vol_mem[10].max())
+vol_mem[1].x[1]
+
+
+objref g, g2
+g = new Graph()
+g.size(0,voltages.ncol,Vo-10,40)
+for i=0, voltages.ncol-1 {
+	printf("time: %f", dt*i)
+	for j=0, voltages.nrow-1 {
+		print(vol_mem[j].x[i])
+	}
+	vol_mem[i].plot(g, dt, i, 1)
+}
+
+g2 = new Graph()
+g.size(0,voltages.nrow,Vo-10,40)
+for i=0, voltages.nrow-1 {
+	printf("time: %f", dt*i)
+	for j=0, voltages.ncol-1 {
+		print(vol_mem_transposed[j].x[i])
+	}
+	vol_mem_transposed[i].plot(g, 1, i, 1)
+}
+/*
+rp = new RangeVarPlot("v")
+node[0] rp.begin(0)
+node[20] rp.end(1)
+g.addobject(rp)
