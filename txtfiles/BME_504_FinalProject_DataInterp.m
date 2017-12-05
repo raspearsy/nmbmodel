@@ -1,9 +1,14 @@
 % Proxy created to give descriptive variable readouts
-% Fat Thickness, where each letter changes 0.1 inch, starting with A
+% Fat Thickness, where each letter changes 0.1 inch, starting with A at 0.1
+% inch
 % Distance from Electrode Center, where each number changes 0.1 inch
-% starting with 0
+% starting with 0 at 0 inch
+% Inter-electrode Distance, where each Roman Numeral changes 0.1 inch
+% starting with V at 0.5 inch
 % For example, A0 is 0.1 inch fat thickness and directly centered
 % For example, C3 is 0.3 inch fat thickness and 0.3 inches from center
+% For example, AV is 0.1 inch fat thickness and 0.5 inch interelectrode
+% distance
 
 NodeDist = (0:0.078740158:8);
 
@@ -42,6 +47,12 @@ J3data = dlmread('1_.3.txt');
 J5data = dlmread('1_.5.txt');
 J10data = dlmread('1_1.txt');
 
+AVdata = dlmread('.1inter.5.txt');
+AXdata = dlmread('.1inter1.txt');
+AXVdata = dlmread('.1inter1.5.txt');
+AXXdata = dlmread('.1inter2.txt');
+AXXVdata = dlmread('.1inter2.5.txt');
+
 A0 = interp1(A0data(:,1),A0data(:,2),NodeDist);
 A1 = interp1(A1data(:,1),A1data(:,2),NodeDist);
 A2 = interp1(A2data(:,1),A2data(:,2),NodeDist);
@@ -76,6 +87,12 @@ J2 = interp1(J2data(:,1),J2data(:,2),NodeDist);
 J3 = interp1(J3data(:,1),J3data(:,2),NodeDist);
 J5 = interp1(J5data(:,1),J5data(:,2),NodeDist);
 J10 = interp1(J10data(:,1),J10data(:,2),NodeDist);
+
+AV = interp1(AVdata(:,1),AVdata(:,2),NodeDist);
+AX = interp1(AXdata(:,1),AXdata(:,2),NodeDist);
+AXV = interp1(AXVdata(:,1),AXVdata(:,2),NodeDist);
+AXX = interp1(AXXdata(:,1),AXXdata(:,2),NodeDist);
+AXXV = interp1(AXXVdata(:,1),AXXVdata(:,2),NodeDist);
 
 figure(1)
 hold on
@@ -146,3 +163,16 @@ xlabel('Node Distance (Inches)')
 ylabel('Extracellular Voltage (V)')
 title('1 inch Fat Thickness with Electrode Moved from Center')
 legend('J0','J1','J2','J3','J5','J10')
+
+figure(6)
+hold on
+plot(NodeDist,AV)
+plot(NodeDist,AX)
+plot(NodeDist,AXV)
+plot(NodeDist,AXX)
+plot(NodeDist,AXXV)
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('0.1 inch Fat Thickness with Inter-Electrode Distance Varied')
+legend('AV','AX','AXV','AXX','AXXV')
