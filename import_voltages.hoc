@@ -1,14 +1,7 @@
 obfunc import_v() { localobj file, voltages
 	file = new File()
 	file.ropen($s1)
-	voltages = new Matrix()
+	voltages = new Vector()
 	voltages.scanf(file)
-
-	printf("\n%s\n", $s1)
-	for i=0, voltages.ncol-1 {
-		for j=0, voltages.nrow-1 {
-			print(voltages.x[j][i])
-		}
-	}
 	return voltages
 }

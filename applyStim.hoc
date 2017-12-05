@@ -14,7 +14,11 @@ INL = 100*D     //internodal length in um
 rhoa = 100      // axial resistivity (ohm-cm)
 Vo = -65        //initial potential
 
-dt = 0.2
+PW = 0.3 // ms (pulse width)
+RPF = 500 // ms (reciprocal pulse frequency)
+DELAY = 1 // ms (pulse delay)
+dt = 0.1 // ms
+tEnd = 2400 // ms
 
 // ----------------------- Creating Axon -------------------------------------
 
@@ -23,12 +27,22 @@ s1 = "testfile.txt"
 objref voltages
 voltages = import_v(s1)
 
-N_NODES = voltages.nrow()    //number of nodes
+N_NODES = voltages.size()    //number of nodes...CHANGE
+
+// each row is a time iteration, each column is a node
+objref vt
+vt = new Matrix(tEnd/dt, N_NODES)
+vt = vt.zero()
+for i=DELAY/dt, DELAY/dt+PW/dt-1 {
+	for n=0, 3 {
+		vt.setrow(i+n*RPF/dt, voltages)
+	}	
+}
 
 create node[N_NODES]
 // initializing axon
 proc initialize(){
-  for i=0, N_NODES-1 {
+  	for i=0, N_NODES-1 {
 		node[i]{
 			nseg = 1
 			diam = 0.7*D  // node diameter (um)
@@ -40,7 +54,7 @@ proc initialize(){
 		}
 	}
 
-  for i=0, N_NODES-2 {
+ for i=0, N_NODES-2 {
 		connect node[i](1), node[i+1](0)
   }
 	finitialize(Vo)
@@ -50,26 +64,16 @@ initialize()
 // for recording membrane potentials
 objref vol_mem[N_NODES]
 for i=0, N_NODES-1{
-	vol_mem[i] = new Vector(voltages.ncol,0)
-  vol_mem[i].record(&node[i].v(0.5))	
-}
-
-objref vol_mem_transposed[voltages.ncol]
-proc transpose_vol_mem() {
-	for i = 0, voltages.ncol {
-		vol_mem_transposed[i] = new Vector(voltages.nrow, 0)
-		for j = 0, voltages.nrow {
-			vol_mem_transposed[i].x[j] = vol_mem[j].x[i]
-		}
-	}
+	vol_mem[i] = new Vector(tEnd/dt,0)
+  vol_mem[i].record(&node[i].v(1))	
 }
 
 // time integrate with constant time step size
 proc stimulate(){
 	finitialize(Vo)
-	for j = 0, voltages.ncol-1 {	
+	for j = 0, vt.nrow-1 {	
 		for i=0, N_NODES-1 {
-			node[i].e_extracellular(0.5) = voltages.x[i][j]	
+			node[i].e_extracellular(0.5) = vt.x[j][i]	
 		}
 	  fadvance()		
 	}	
@@ -77,35 +81,20 @@ proc stimulate(){
 
 // ----------------------- Debugging -----------------------------------------
 stimulate()
-//AMPLITUDE = AMPLITUDE - 25e-3
-//dummystim.amp = AMPLITUDE
-//stimulate()
-//print(vol_mem[10].max())
-vol_mem[1].x[1]
-
 
 objref g, g2
+
 g = new Graph()
-g.size(0,voltages.ncol,Vo-10,40)
-for i=0, voltages.ncol-1 {
-	printf("time: %f", dt*i)
-	for j=0, voltages.nrow-1 {
-		print(vol_mem[j].x[i])
-	}
-	vol_mem[i].plot(g, dt, i, 1)
-}
+g.size(0,vt.nrow*dt,Vo-10,40)
+vol_mem[N_NODES-1].plot(g, dt, 1, 1)
 
 g2 = new Graph()
-g.size(0,voltages.nrow,Vo-10,40)
-for i=0, voltages.nrow-1 {
-	printf("time: %f", dt*i)
-	for j=0, voltages.ncol-1 {
-		print(vol_mem_transposed[j].x[i])
-	}
-	vol_mem_transposed[i].plot(g, 1, i, 1)
-}
-/*
-rp = new RangeVarPlot("v")
-node[0] rp.begin(0)
-node[20] rp.end(1)
-g.addobject(rp)
+g2.size(0,voltages.size,-20,120)
+voltages.plot(g2,1,-20,120)
+
+
+//for i=0, voltages.size-1 {
+//	printf("time: %f", dt*i)
+//	print(vol_mem.x[i])
+//	vol_mem[i].plot(g, dt, i, 1)
+//}
