@@ -94,6 +94,47 @@ AXV = interp1(AXVdata(:,1),AXVdata(:,2),NodeDist);
 AXX = interp1(AXXdata(:,1),AXXdata(:,2),NodeDist);
 AXXV = interp1(AXXVdata(:,1),AXXVdata(:,2),NodeDist);
 
+dlmwrite('A0.txt',A0,'delimiter',' ')
+dlmwrite('A1.txt',A1,'delimiter',' ')
+dlmwrite('A2.txt',A2,'delimiter',' ')
+dlmwrite('A3.txt',A3,'delimiter',' ')
+dlmwrite('A5.txt',A5,'delimiter',' ')
+dlmwrite('A10.txt',A10,'delimiter',' ')
+
+dlmwrite('B0.txt',B0,'delimiter',' ')
+dlmwrite('B1.txt',B1,'delimiter',' ')
+dlmwrite('B2.txt',B2,'delimiter',' ')
+dlmwrite('B3.txt',B3,'delimiter',' ')
+dlmwrite('B5.txt',B5,'delimiter',' ')
+dlmwrite('B10.txt',B10,'delimiter',' ')
+
+dlmwrite('C0.txt',C0,'delimiter',' ')
+dlmwrite('C1.txt',C1,'delimiter',' ')
+dlmwrite('C2.txt',C2,'delimiter',' ')
+dlmwrite('C3.txt',C3,'delimiter',' ')
+dlmwrite('C5.txt',C5,'delimiter',' ')
+dlmwrite('C10.txt',C10,'delimiter',' ')
+
+dlmwrite('E0.txt',E0,'delimiter',' ')
+dlmwrite('E1.txt',E1,'delimiter',' ')
+dlmwrite('E2.txt',E2,'delimiter',' ')
+dlmwrite('E3.txt',E3,'delimiter',' ')
+dlmwrite('E5.txt',E5,'delimiter',' ')
+dlmwrite('E10.txt',E10,'delimiter',' ')
+
+dlmwrite('J0.txt',J0,'delimiter',' ')
+dlmwrite('J1.txt',J1,'delimiter',' ')
+dlmwrite('J2.txt',J2,'delimiter',' ')
+dlmwrite('J3.txt',J3,'delimiter',' ')
+dlmwrite('J5.txt',J5,'delimiter',' ')
+dlmwrite('J10.txt',J10,'delimiter',' ')
+
+dlmwrite('AV.txt',AV,'delimiter',' ')
+dlmwrite('AX.txt',AX,'delimiter',' ')
+dlmwrite('AXV.txt',AXV,'delimiter',' ')
+dlmwrite('AXX.txt',AXX,'delimiter',' ')
+dlmwrite('AXXV.txt',AXXV,'delimiter',' ')
+
 figure(1)
 hold on
 plot(NodeDist,A0)
