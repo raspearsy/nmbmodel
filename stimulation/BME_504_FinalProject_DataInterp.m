@@ -135,22 +135,22 @@ dlmwrite('AXV.txt',AXV,'delimiter',' ')
 dlmwrite('AXX.txt',AXX,'delimiter',' ')
 dlmwrite('AXXV.txt',AXXV,'delimiter',' ')
 
-A0new = A0/45*10;
+A0new = A0*50;
 J10new = J10/45*10;
 dlmwrite('A0new.txt',A0new,'delimiter',' ')
 dlmwrite('J10new.txt',J10new,'delimiter',' ')
 
-% %% 2nd Difference Finder
-%     for n = 2:length(J0)-1; 
-%        f1(n) = (J0(n-1)-2*J0(n)+ J0(n+1));
-%        f2(n) = (A0(n-1)-2*A0(n)+ A0(n+1));
-%    end
-% 
-% j0 = conv(f1,ones(5,1)/5, 'same');
-% a0 = conv(f2,ones(5,1)/5, 'same');
-% plot(NodeDist(1,2:102),j0,NodeDist(1,2:102),a0)
-% legend('1 in fat', '.1 in fat'); title('2nd Diff Voltage Distribution')
-% xlabel('Distance along nerve (in)'); ylabel('2nd Diff Voltage (V)'); grid on
+%% 2nd Difference Finder
+   for n = 2:length(J0)-1; 
+       J0diff(n) = (J0(n-1)-2*J0(n)+ J0(n+1));
+       A0diff(n) = (A0(n-1)-2*A0(n)+ A0(n+1));
+   end
+
+j0 = conv(J0diff,ones(5,1)/5, 'same');
+a0 = conv(A0diff,ones(5,1)/5, 'same');
+plot(NodeDist(1,2:102),j0,NodeDist(1,2:102),a0)
+legend('1 in fat', '.1 in fat'); title('2nd Diff Voltage Distribution')
+xlabel('Distance along nerve (in)'); ylabel('2nd Diff Voltage (V)'); grid on
 %%
 figure(1)
 hold on
