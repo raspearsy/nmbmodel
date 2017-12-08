@@ -1,0 +1,100 @@
+// Demonstration of extracellular stimulation
+// Leo Medina 2013-10-28 
+// Updated by Aman Aberra 2017-09-04
+load_file("nrngui.hoc")
+load_file("import_voltages.hoc")
+
+
+// ----------------------- Global Variables ----------------------------------
+
+//Fiber
+D = 20          // fiber diameter in um
+//N_NODES = 21    //number of nodes
+INL = 100*D     //internodal length in um
+rhoa = 100      // axial resistivity (ohm-cm)
+Vo = -65        //initial potential
+
+PW = 0.3 // ms (pulse width)
+RPF = 500 // ms (reciprocal pulse frequency)
+DELAY = 1 // ms (pulse delay)
+dt = 0.1 // ms
+tEnd = 2400 // ms
+
+// ----------------------- Creating Axon -------------------------------------
+
+strdef s1
+s1 = "testfile.txt"
+objref voltages
+voltages = import_v(s1)
+
+N_NODES = voltages.size()    //number of nodes...CHANGE
+
+// each row is a time iteration, each column is a node
+objref vt
+vt = new Matrix(tEnd/dt, N_NODES)
+vt = vt.zero()
+for i=DELAY/dt, DELAY/dt+PW/dt-1 {
+	for n=0, 3 {
+		vt.setrow(i+n*RPF/dt, voltages)
+	}	
+}
+
+create node[N_NODES]
+// initializing axon
+proc initialize(){
+  	for i=0, N_NODES-1 {
+		node[i]{
+			nseg = 1
+			diam = 0.7*D  // node diameter (um)
+			L    = 1		 // node length (um)
+			Ra   = rhoa*( (L + INL) / L )  // trick to account for internodal resistance
+			cm   = 1							 // specific membrane capacitance (uF/cm^2)			
+			insert hh      		
+			insert extracellular   // for extracellular stimulation 
+		}
+	}
+
+ for i=0, N_NODES-2 {
+		connect node[i](1), node[i+1](0)
+  }
+	finitialize(Vo)
+}
+initialize()
+
+// for recording membrane potentials
+objref vol_mem[N_NODES]
+for i=0, N_NODES-1{
+	vol_mem[i] = new Vector(tEnd/dt,0)
+  vol_mem[i].record(&node[i].v(1))	
+}
+
+// time integrate with constant time step size
+proc stimulate(){
+	finitialize(Vo)
+	for j = 0, vt.nrow-1 {	
+		for i=0, N_NODES-1 {
+			node[i].e_extracellular(0.5) = vt.x[j][i]	
+		}
+	  fadvance()		
+	}	
+}
+
+// ----------------------- Debugging -----------------------------------------
+stimulate()
+
+objref g, g2
+
+g = new Graph()
+g.size(0,vt.nrow*dt,Vo-10,40)
+vol_mem[N_NODES-1].plot(g, dt, 1, 1)
+
+g2 = new Graph()
+g2.size(0,voltages.size,-20,120)
+voltages.plot(g2,1,-20,120)
+
+
+//for i=0, voltages.size-1 {
+//	printf("time: %f", dt*i)
+//	print(vol_mem.x[i])
+//	vol_mem[i].plot(g, dt, i, 1)
+//}

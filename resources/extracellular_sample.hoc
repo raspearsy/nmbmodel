@@ -91,12 +91,34 @@ proc stimulate(){
 }
 
 // ----------------------- Debugging -----------------------------------------
+
+
+proc transpose_vol_mem() {
+	for i = 0, tstop/dt {
+		for j = 0, N_NODES-1 {
+			printf()
+		}
+	}
+}
+
 stimulate()
-print(vol_mem[10].max())
+transpose_vol_mem()
+
+objref 
+for i=0, tstop/dt{
+
+}
+
+/*print(vol_mem[10].max())
 AMPLITUDE = AMPLITUDE - 25e-3
 dummystim.amp = AMPLITUDE
 stimulate()
 print(vol_mem[10].max())
+
+print N_NODES
+printf("nodes: %d", vol_mem.size)
+printf("timesteps: %d", vol_mem[1].size)
+print(tstop/dt)
 
 /*
 objref g, rp

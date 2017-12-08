@@ -1,0 +1,7 @@
+obfunc import_v() { localobj file, voltages
+	file = new File()
+	file.ropen($s1)
+	voltages = new Vector()
+	voltages.scanf(file)
+	return voltages
+}
