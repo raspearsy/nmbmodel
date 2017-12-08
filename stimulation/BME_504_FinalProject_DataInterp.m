@@ -135,7 +135,9 @@ dlmwrite('AXV.txt',AXV,'delimiter',' ')
 dlmwrite('AXX.txt',AXX,'delimiter',' ')
 dlmwrite('AXXV.txt',AXXV,'delimiter',' ')
 
-A0new = A0/45;
+A0new = A0*10;
+J0new = J0/9;
+
 J10new = J10;
 dlmwrite('A0new.txt',A0new,'delimiter',' ')
 dlmwrite('J10new.txt',J10new,'delimiter',' ')
@@ -234,3 +236,5 @@ xlabel('Node Distance (Inches)')
 ylabel('Extracellular Voltage (V)')
 title('0.1 inch Fat Thickness with Inter-Electrode Distance Varied')
 legend('AV','AX','AXV','AXX','AXXV')
+
+close all
