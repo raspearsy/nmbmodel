@@ -145,6 +145,10 @@ a0 = conv(f2,ones(5,1)/5, 'same');
 plot(NodeDist(1,2:102),j0,NodeDist(1,2:102),a0)
 legend('1 in fat', '.1 in fat'); title('2nd Diff Voltage Distribution')
 xlabel('Distance along nerve (in)'); ylabel('2nd Diff Voltage (V)'); grid on
+
+
+
+
 %%
 figure(1)
 hold on
