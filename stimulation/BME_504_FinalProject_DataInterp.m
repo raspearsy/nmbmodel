@@ -135,10 +135,17 @@ dlmwrite('AXV.txt',AXV,'delimiter',' ')
 dlmwrite('AXX.txt',AXX,'delimiter',' ')
 dlmwrite('AXXV.txt',AXXV,'delimiter',' ')
 
+<<<<<<< HEAD
 A0new = A0/max(A0)*45;
 A10new = A10/max(A10)*50;
 J10new = J10/45*10;
 
+=======
+A0new = A0*10;
+J0new = J0/9;
+
+J10new = J10;
+>>>>>>> c732c681576b07ca680d823a7f388697704ba066
 dlmwrite('A0new.txt',A0new,'delimiter',' ')
 dlmwrite('A10new.txt',A10new,'delimiter',' ')
 dlmwrite('J10new.txt',J10new,'delimiter',' ')
@@ -247,6 +254,7 @@ ylabel('Extracellular Voltage (V)')
 title('0.1 inch Fat Thickness with Inter-Electrode Distance Varied')
 legend('AV','AX','AXV','AXX','AXXV')
 
+<<<<<<< HEAD
 figure(7)
 hold on
 plot(NodeDist2,a0)
@@ -259,3 +267,6 @@ xlabel('Node Distance (Inches)');
 ylabel('2nd Diff Voltage (V)'); 
 grid on
 grid minor
+=======
+close all
+>>>>>>> c732c681576b07ca680d823a7f388697704ba066
