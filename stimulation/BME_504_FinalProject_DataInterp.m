@@ -139,7 +139,7 @@ A0new = A0;
 A10new = A10;
 J10new = J10;
 
-%A0new = A0;
+%A0new = A0new/45;
 %J0new = J0/9;
 
 J10new = J10;
