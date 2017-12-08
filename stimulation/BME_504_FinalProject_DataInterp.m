@@ -135,23 +135,35 @@ dlmwrite('AXV.txt',AXV,'delimiter',' ')
 dlmwrite('AXX.txt',AXX,'delimiter',' ')
 dlmwrite('AXXV.txt',AXXV,'delimiter',' ')
 
-A0new = A0*28;
+A0new = A0/max(A0)*45;
+A10new = A10/max(A10)*50;
 J10new = J10/45*10;
+
 dlmwrite('A0new.txt',A0new,'delimiter',' ')
+dlmwrite('A10new.txt',A10new,'delimiter',' ')
 dlmwrite('J10new.txt',J10new,'delimiter',' ')
 
-%% 2nd Difference Finder
-   for n = 2:length(J0)-1; 
-       J0diff(n) = (J0(n-1)-2*J0(n)+ J0(n+1));
+% 2nd Difference Finder
+
+A0diff = zeros(1,101);
+J0diff = zeros(1,101);
+A0newdiff = zeros(1,101);
+A10newdiff = zeros(1,101);
+
+   for n = 2:length(A0)-1; 
        A0diff(n) = (A0(n-1)-2*A0(n)+ A0(n+1));
+       J0diff(n) = (J0(n-1)-2*J0(n)+ J0(n+1));
+       A0newdiff(n) = (A0new(n-1)-2*A0new(n)+ A0new(n+1));
+       A10newdiff(n) = (A10new(n-1)-2*A10new(n)+ A10new(n+1));
    end
 
-j0 = conv(J0diff,ones(5,1)/5, 'same');
 a0 = conv(A0diff,ones(5,1)/5, 'same');
-plot(NodeDist(1,2:102),j0,NodeDist(1,2:102),a0)
-legend('1 in fat', '.1 in fat'); title('2nd Diff Voltage Distribution')
-xlabel('Distance along nerve (in)'); ylabel('2nd Diff Voltage (V)'); grid on
-%%
+j0 = conv(J0diff,ones(5,1)/5, 'same');
+a0new = conv(A0newdiff,ones(5,1)/5, 'same');
+a10new = conv(A10newdiff,ones(5,1)/5, 'same');
+
+NodeDist2 = NodeDist(1,2:102);
+
 figure(1)
 hold on
 plot(NodeDist,A0)
@@ -234,3 +246,16 @@ xlabel('Node Distance (Inches)')
 ylabel('Extracellular Voltage (V)')
 title('0.1 inch Fat Thickness with Inter-Electrode Distance Varied')
 legend('AV','AX','AXV','AXX','AXXV')
+
+figure(7)
+hold on
+plot(NodeDist2,a0)
+plot(NodeDist2,j0)
+plot(NodeDist2,a0new)
+plot(NodeDist2,a10new)
+legend('A0', 'J0', 'A0new', 'A10new'); 
+title('2nd Diff Voltage Distribution');
+xlabel('Node Distance (Inches)'); 
+ylabel('2nd Diff Voltage (V)'); 
+grid on
+grid minor
