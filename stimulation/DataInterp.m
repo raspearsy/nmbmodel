@@ -9,7 +9,7 @@
 % For example, C3 is 0.3 inch fat thickness and 0.3 inches from center
 % For example, AV is 0.1 inch fat thickness and 0.5 inch interelectrode
 % distance
-
+% A0 to J0 and A0 to A10
 NodeDist = (0:0.078740158:8);
 
 A0data = dlmread('.1_0.txt');
@@ -52,6 +52,10 @@ AXdata = dlmread('.1inter1.txt');
 AXVdata = dlmread('.1inter1.5.txt');
 AXXdata = dlmread('.1inter2.txt');
 AXXVdata = dlmread('.1inter2.5.txt');
+
+addpath('C:\Users\tt147\Documents\nmbmodel\stimulation\Updated Data') 
+A000data = dlmread('/Updated Data/45_10.txt');
+A000 = interp1(A000data(:,1),A000data(:,2),NodeDist);
 
 A0 = interp1(A0data(:,1),A0data(:,2),NodeDist);
 A1 = interp1(A1data(:,1),A1data(:,2),NodeDist);
@@ -153,34 +157,45 @@ A0diff = zeros(1,101);
 J0diff = zeros(1,101);
 A0newdiff = zeros(1,101);
 A10newdiff = zeros(1,101);
+A000diff = zeros(1,101);
+
 
    for n = 2:length(A0)-1; 
        A0diff(n) = (A0(n-1)-2*A0(n)+ A0(n+1));
        J0diff(n) = (J0(n-1)-2*J0(n)+ J0(n+1));
        A0newdiff(n) = (A0new(n-1)-2*A0new(n)+ A0new(n+1));
        A10newdiff(n) = (A10new(n-1)-2*A10new(n)+ A10new(n+1));
+       
+       A000diff(n) = (A000(n-1)-2*A000(n)+ A000(n+1));
    end
 
 a0 = conv(A0diff,ones(5,1)/5, 'same');
 j0 = conv(J0diff,ones(5,1)/5, 'same');
 a0new = conv(A0newdiff,ones(5,1)/5, 'same');
 a10new = conv(A10newdiff,ones(5,1)/5, 'same');
+a000 = conv(A000diff,ones(5,1)/5, 'same');
+
 
 NodeDist2 = NodeDist(1,2:102);
 
+close all
 figure(1)
 hold on
-plot(NodeDist,A0)
-plot(NodeDist,A1)
-plot(NodeDist,A2)
-plot(NodeDist,A3)
-plot(NodeDist,A5)
-plot(NodeDist,A10)
+plot(NodeDist,A0,'k--')
+plot(NodeDist,A1,'--')
+plot(NodeDist,A2,'--')
+plot(NodeDist,A3,'--')
+plot(NodeDist,A5,'--')
+plot(NodeDist,A10,'--')
+plot(NodeDist,B0)
+plot(NodeDist,C0)
+plot(NodeDist,E0)
+plot(NodeDist,J0)
 hold off
 xlabel('Node Distance (Inches)')
 ylabel('Extracellular Voltage (V)')
 title('0.1 inch Fat Thickness with Electrode Moved from Center')
-legend('A0','A1','A2','A3','A5','A10')
+legend('A0','A1','A2','A3','A5','A10','B0','C0','E0','J0')
 
 figure(2)
 hold on
@@ -264,4 +279,12 @@ ylabel('2nd Diff Voltage (V)');
 grid on
 grid minor
 
-close all
+figure(8)
+hold on
+plot(NodeDist2,a000)
+legend('A000'); 
+title('2nd Diff Voltage Distribution');
+xlabel('Node Distance (Inches)'); 
+ylabel('2nd Diff Voltage (V)'); 
+grid on
+grid minor
