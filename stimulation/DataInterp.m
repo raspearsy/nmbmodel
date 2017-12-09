@@ -135,12 +135,12 @@ dlmwrite('AXV.txt',AXV,'delimiter',' ')
 dlmwrite('AXX.txt',AXX,'delimiter',' ')
 dlmwrite('AXXV.txt',AXXV,'delimiter',' ')
 
-A0new = A0/max(A0)*45;
-A10new = A10/max(A10)*50;
-J10new = J10/45*10;
-
 A0new = A0;
-J0new = J0/9;
+A10new = A10;
+J10new = J10;
+
+%A0new = A0;
+%J0new = J0/9;
 
 J10new = J10;
 dlmwrite('A0new.txt',A0new,'delimiter',' ')
