@@ -67,15 +67,15 @@ A5_50 = interp1(A5_50data(:,1),A5_50data(:,2),NodeDist);
 A10_100 = interp1(A10_100data(:,1),A10_100data(:,2),NodeDist);
 A10_125 = interp1(A10_125data(:,1),A10_125data(:,2),NodeDist);
 
-A0_25 = 1000*A0_25;
-A0_100 = 1000*A0_100;
-A1_25 = 1000*A1_25;
-A3_25 = 1000*A3_25;
-A3_50 = 1000*A3_50;
-A5_25 = 1000*A5_25;
-A5_50 = 1000*A5_50;
-A10_100 = 1000*A10_100;
-A10_125 = 1000*A10_125;
+A0_25 = 
+A0_100 = ;
+A1_25 = ;
+A3_25 = ;
+A3_50 = ;
+A5_25 = ;
+A5_50 = ;
+A10_100 = interp1(A10_100data(:,1),A10_100data(:,2),NodeDist);
+A10_125
 
 % B0 = interp1(B0data(:,1),B0data(:,2),NodeDist);
 % B1 = interp1(B1data(:,1),B1data(:,2),NodeDist);

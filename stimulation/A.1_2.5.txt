@@ -1,11 +1,3 @@
-% Model:              FINAL.mph
-% Version:            COMSOL 5.3.0.316
-% Date:               Dec 9 2017, 12:23
-% Dimension:          1
-% Nodes:              698
-% Expressions:        1
-% Description:        Line graph
-% cln2x                   Height
 0                         0
 0.02126607030642954       6.469460175805666E-5
 0.02566015105885484       7.807306962001243E-5
