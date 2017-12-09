@@ -23,7 +23,7 @@ tEnd = 2400 // ms
 // ----------------------- Creating Axon -------------------------------------
 
 strdef s1
-s1 = "C10_100.txt"
+s1 = "C0_50.txt"
 objref voltages
 voltages = import_v(s1)
 

@@ -20,10 +20,12 @@ A3_25data = dlmread('A.3_2.5.txt');
 A3_50data = dlmread('A.3_5.txt');
 A5_25data = dlmread('A.5_2.5.txt');
 A5_50data = dlmread('A.5_5.txt');
+A10_75data = dlmread('A1_7.5.txt');
 A10_100data = dlmread('A1_10.txt');
 A10_125data = dlmread('A1_12.5.txt');
 
 C0_25data = dlmread('C0_2.5.txt');
+C0_50data = dlmread('C0_5.txt');
 C1_25data = dlmread('C.1_2.5.txt');
 C1_50data = dlmread('C.1_5.txt');
 C3_25data = dlmread('C.3_2.5.txt');
@@ -35,6 +37,17 @@ C5_125data = dlmread('C.5_12.5.txt');
 C10_75data = dlmread('C1_7.5.txt');
 C10_100data = dlmread('C1_10.txt');
 C10_125data = dlmread('C1_12.5.txt');
+
+E0_25data = dlmread('E0_2.5.txt');
+E0_50data = dlmread('E0_5.txt');
+E1_25data = dlmread('E.1_2.5.txt');
+E1_50data = dlmread('E.1_5.txt');
+E3_50data = dlmread('E.3_5.txt');
+E3_75data = dlmread('E.3_7.5.txt');
+E5_50data = dlmread('E.5_5.txt');
+E5_75data = dlmread('E.5_7.5.txt');
+E10_100data = dlmread('E1_10.txt');
+E10_125data = dlmread('E1_12.5.txt');
 
 % B0data = dlmread('.2_0.txt');
 % B1data = dlmread('.2_.1.txt');
@@ -77,6 +90,7 @@ A3_25 = interp1(A3_25data(:,1),A3_25data(:,2),NodeDist);
 A3_50 = interp1(A3_50data(:,1),A3_50data(:,2),NodeDist);
 A5_25 = interp1(A5_25data(:,1),A5_25data(:,2),NodeDist);
 A5_50 = interp1(A5_50data(:,1),A5_50data(:,2),NodeDist);
+A10_75 = interp1(A10_75data(:,1),A10_75data(:,2),NodeDist);
 A10_100 = interp1(A10_100data(:,1),A10_100data(:,2),NodeDist);
 A10_125 = interp1(A10_125data(:,1),A10_125data(:,2),NodeDist);
 
@@ -87,10 +101,12 @@ A3_25 = 1000*A3_25;
 A3_50 = 1000*A3_50;
 A5_25 = 1000*A5_25;
 A5_50 = 1000*A5_50;
+A10_75 = 1000*A10_75;
 A10_100 = 1000*A10_100;
 A10_125 = 1000*A10_125;
 
 C0_25 = interp1(C0_25data(:,1),C0_25data(:,2),NodeDist);
+C0_50 = interp1(C0_50data(:,1),C0_50data(:,2),NodeDist);
 C1_25 = interp1(C1_25data(:,1),C1_25data(:,2),NodeDist);
 C1_50 = interp1(C1_50data(:,1),C1_50data(:,2),NodeDist);
 C3_25 = interp1(C3_25data(:,1),C3_25data(:,2),NodeDist);
@@ -104,6 +120,7 @@ C10_100 = interp1(C10_100data(:,1),C10_100data(:,2),NodeDist);
 C10_125 = interp1(C10_125data(:,1),C10_125data(:,2),NodeDist);
 
 C0_25 = 1000*C0_25;
+C0_50 = 1000*C0_50;
 C1_25 = 1000*C1_25;
 C1_50 = 1000*C1_50;
 C3_25 = 1000*C3_25;
@@ -115,6 +132,28 @@ C5_125 = 1000*C5_125;
 C10_75 = 1000*C10_75;
 C10_100 = 1000*C10_100;
 C10_125 = 1000*C10_125;
+
+E0_25 = interp1(E0_25data(:,1),E0_25data(:,2),NodeDist);
+E0_50 = interp1(E0_50data(:,1),E0_50data(:,2),NodeDist);
+E1_25 = interp1(E1_25data(:,1),E1_25data(:,2),NodeDist);
+E1_50 = interp1(E1_50data(:,1),E1_50data(:,2),NodeDist);
+E3_50 = interp1(E3_50data(:,1),E3_50data(:,2),NodeDist);
+E3_75 = interp1(E3_75data(:,1),E3_75data(:,2),NodeDist);
+E5_50 = interp1(E5_50data(:,1),E5_50data(:,2),NodeDist);
+E5_75 = interp1(E5_75data(:,1),E5_75data(:,2),NodeDist);
+E10_100 = interp1(E10_100data(:,1),E10_100data(:,2),NodeDist);
+E10_125 = interp1(E10_125data(:,1),E10_125data(:,2),NodeDist);
+
+E0_25 = 1000*E0_25;
+E0_50 = 1000*E0_50;
+E1_25 = 1000*E1_25;
+E1_50 = 1000*E1_50;
+E3_50 = 1000*E3_50;
+E3_75 = 1000*E3_75;
+E5_50 = 1000*E5_50;
+E5_75 = 1000*E5_75;
+E10_100 = 1000*E10_100;
+E10_125 = 1000*E10_125;
 
 % B0 = interp1(B0data(:,1),B0data(:,2),NodeDist);
 % B1 = interp1(B1data(:,1),B1data(:,2),NodeDist);
@@ -157,10 +196,12 @@ dlmwrite('A3_25.txt',A3_25,'delimiter',' ')
 dlmwrite('A3_50.txt',A3_50,'delimiter',' ')
 dlmwrite('A5_25.txt',A5_25,'delimiter',' ')
 dlmwrite('A5_50.txt',A5_50,'delimiter',' ')
+dlmwrite('A10_75.txt',A10_75,'delimiter',' ')
 dlmwrite('A10_100.txt',A10_100,'delimiter',' ')
 dlmwrite('A10_125.txt',A10_125,'delimiter',' ')
 
 dlmwrite('C0_25.txt',C0_25,'delimiter',' ')
+dlmwrite('C0_50.txt',C0_50,'delimiter',' ')
 dlmwrite('C1_25.txt',C1_25,'delimiter',' ')
 dlmwrite('C1_50.txt',C1_50,'delimiter',' ')
 dlmwrite('C3_25.txt',C3_25,'delimiter',' ')
@@ -172,6 +213,28 @@ dlmwrite('C5_125.txt',C5_125,'delimiter',' ')
 dlmwrite('C10_75.txt',C10_75,'delimiter',' ')
 dlmwrite('C10_100.txt',C10_100,'delimiter',' ')
 dlmwrite('C10_125.txt',C10_125,'delimiter',' ')
+
+dlmwrite('E0_25.txt',E0_25,'delimiter',' ')
+dlmwrite('E0_50.txt',E0_50,'delimiter',' ')
+dlmwrite('E1_25.txt',E1_25,'delimiter',' ')
+dlmwrite('E1_50.txt',E1_50,'delimiter',' ')
+dlmwrite('E3_50.txt',E3_50,'delimiter',' ')
+dlmwrite('E3_75.txt',E3_75,'delimiter',' ')
+dlmwrite('E5_50.txt',E5_50,'delimiter',' ')
+dlmwrite('E5_75.txt',E5_75,'delimiter',' ')
+dlmwrite('E10_100.txt',E10_100,'delimiter',' ')
+dlmwrite('E10_125.txt',E10_125,'delimiter',' ')
+
+E0_25 = 1000*E0_25;
+E0_50 = 1000*E0_50;
+E1_25 = 1000*E1_25;
+E1_50 = 1000*E1_50;
+E3_50 = 1000*E3_50;
+E3_75 = 1000*E3_75;
+E5_50 = 1000*E5_50;
+E5_75 = 1000*E5_75;
+E10_100 = 1000*E10_100;
+E10_125 = 1000*E10_125;
 
 % dlmwrite('B0.txt',B0,'delimiter',' ')
 % dlmwrite('B1.txt',B1,'delimiter',' ')
