@@ -11,6 +11,8 @@
 % distance
 % A0 to J0 and A0 to A10 graph
 
+% Look at figures, 1 inch fat thickness can give some wonky values
+
 %%
 
 NodeDist = (0:0.078740158:8);
@@ -282,110 +284,135 @@ dlmwrite('J10_175.txt',J10_175,'delimiter',' ')
 
 close all
 
-% figure(1)
-% hold on
-% plot(NodeDist,A0,'k--')
-% plot(NodeDist,A1,'--')
-% plot(NodeDist,A2,'--')
-% plot(NodeDist,A3,'--')
-% plot(NodeDist,A5,'--')
-% plot(NodeDist,A10,'--')
+A10_75 = A10_75/1.25;
+
+figure(1)
+hold on
+plot(NodeDist,A0_25,'--')
+plot(NodeDist,A1_25,'--')
+plot(NodeDist,A3_25,'--')
+plot(NodeDist,A10_75,'--')
 % plot(NodeDist,B0)
 % plot(NodeDist,C0)
 % plot(NodeDist,E0)
 % plot(NodeDist,J0)
-% hold off
-% xlabel('Node Distance (Inches)')
-% ylabel('Extracellular Voltage (V)')
-% title('0.1 inch Fat Thickness with Electrode Moved from Center')
-% legend('A0','A1','A2','A3','A5','A10','B0','C0','E0','J0')
-% 
-% figure(2)
-% hold on
-% plot(NodeDist,B0)
-% plot(NodeDist,B1)
-% plot(NodeDist,B2)
-% plot(NodeDist,B3)
-% plot(NodeDist,B5)
-% plot(NodeDist,B10)
-% hold off
-% xlabel('Node Distance (Inches)')
-% ylabel('Extracellular Voltage (V)')
-% title('0.2 inch Fat Thickness with Electrode Moved from Center')
-% legend('B0','B1','B2','B3','B5','B10')
-% 
-% figure(3)
-% hold on
-% plot(NodeDist,C0)
-% plot(NodeDist,C1)
-% plot(NodeDist,C2)
-% plot(NodeDist,C3)
-% plot(NodeDist,C5)
-% plot(NodeDist,C10)
-% hold off
-% xlabel('Node Distance (Inches)')
-% ylabel('Extracellular Voltage (V)')
-% title('0.3 inch Fat Thickness with Electrode Moved from Center')
-% legend('C0','C1','B2','C3','C5','C10')
-% 
-% figure(4)
-% hold on
-% plot(NodeDist,E0)
-% plot(NodeDist,E1)
-% plot(NodeDist,E2)
-% plot(NodeDist,E3)
-% plot(NodeDist,E5)
-% plot(NodeDist,E10)
-% hold off
-% xlabel('Node Distance (Inches)')
-% ylabel('Extracellular Voltage (V)')
-% title('0.5 inch Fat Thickness with Electrode Moved from Center')
-% legend('E0','E1','E2','E3','E5','E10')
-% 
-% figure(5)
-% hold on
-% plot(NodeDist,J0)
-% plot(NodeDist,J1)
-% plot(NodeDist,J2)
-% plot(NodeDist,J3)
-% plot(NodeDist,J5)
-% plot(NodeDist,J10)
-% hold off
-% xlabel('Node Distance (Inches)')
-% ylabel('Extracellular Voltage (V)')
-% title('1 inch Fat Thickness with Electrode Moved from Center')
-% legend('J0','J1','J2','J3','J5','J10')
-% 
-% figure(6)
-% hold on
-% plot(NodeDist,AV)
-% plot(NodeDist,AX)
-% plot(NodeDist,AXV)
-% plot(NodeDist,AXX)
-% plot(NodeDist,AXXV)
-% hold off
-% xlabel('Node Distance (Inches)')
-% ylabel('Extracellular Voltage (V)')
-% title('0.1 inch Fat Thickness with Inter-Electrode Distance Varied')
-% legend('AV','AX','AXV','AXX','AXXV')
-% 
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('0.1 inch Fat Thickness with Electrode Moved from Center')
+legend('A0','A1','A3','A10')
+
+figure(2)
+hold on
+plot(NodeDist,C0_50,'--')
+plot(NodeDist,C1_50,'--')
+plot(NodeDist,C3_50,'--')
+plot(NodeDist,C5_50,'--')
+% plot(NodeDist,C10_75,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('0.3 inch Fat Thickness with Electrode Moved from Center')
+legend('C0','C1','C3','C5','C10')
+
+figure(3)
+hold on
+plot(NodeDist,E0_50,'--')
+plot(NodeDist,E1_50,'--')
+plot(NodeDist,E3_50,'--')
+plot(NodeDist,E5_50,'--')
+plot(NodeDist,E10_100,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('0.5 inch Fat Thickness with Electrode Moved from Center')
+legend('E0','E1','E3','E5','E10')
+
+figure(4)
+hold on
+plot(NodeDist,J0_100,'--')
+plot(NodeDist,J1_100,'--')
+plot(NodeDist,J3_100,'--')
+plot(NodeDist,J5_100,'--')
+plot(NodeDist,J10_125,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('1 inch Fat Thickness with Electrode Moved from Center')
+legend('J0','J1','J3','J5','J10')
+
+A3_25n = A3_25/max(A3_25)*55;
+C5_50n = C5_50/max(C5_50)*55;
+E3_50n = E3_50/max(E3_50)*55;
+J3_100n = J3_100/max(J3_100)*55;
+
+figure(5)
+hold on
+plot(NodeDist,C0_50,'-')
+% plot(NodeDist,C1_50,'-')
+plot(NodeDist,C3_50,'-')
+plot(NodeDist,C5_50n,'--')
+plot(NodeDist,A3_25n,'--')
+plot(NodeDist,E3_50n,'--')
+plot(NodeDist,J3_100n,'--')
+% plot(NodeDist,C10_75,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('Varying Fat Thickness and Electrode Distance from Center')
+legend('C0','C3','C5','A3','E3','J3')
+
+A0_25n = A0_25/max(A0_25)*55;
+C0_50n = C0_50/max(C0_50)*55;
+E0_50n = E0_50/max(E0_50)*55;
+J0_75n = J0_75/max(J0_75)*55;
+
+figure(6)
+hold on
+plot(NodeDist,A0_25n,'-')
+plot(NodeDist,C0_50n,'-')
+plot(NodeDist,E0_50n,'--')
+plot(NodeDist,J0_75n,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('Varying Fat Thickness and Electrode Centered')
+legend('A0','C0','E0','J0')
+
+A10_75n = A10_75/max(A10_75)*55;
+C10_75n = C10_75/max(C10_75)*55;
+E10_100n = E10_100/max(E10_100)*55;
+J10_125n = J10_125/max(J10_125)*55;
+
+figure(7)
+hold on
+plot(NodeDist,A10_75n,'-')
+plot(NodeDist,C10_75n,'-')
+plot(NodeDist,E10_100n,'--')
+plot(NodeDist,J10_125n,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('Varying Fat Thickness and Electrode 1 inch from Center')
+legend('A10','C10','E10','J10')
+
+figure(8)
+hold on
+plot(NodeDist,A0_25n,'-')
+plot(NodeDist,J0_75n,'--')
+plot(NodeDist,A10_75n,'-')
+plot(NodeDist,J10_125n,'--')
+hold off
+xlabel('Node Distance (Inches)')
+ylabel('Extracellular Voltage (V)')
+title('Varying Fat Thickness and Electrode 1 inch from Center')
+legend('A0','J0','A10','J10')
+
 % figure(7)
 % hold on
 % plot(NodeDist2,a0)
 % plot(NodeDist2,j0)
-% plot(NodeDist2,a0new)
-% plot(NodeDist2,a10new)
-% legend('A0', 'J0', 'A0new', 'A10new'); 
-% title('2nd Diff Voltage Distribution');
-% xlabel('Node Distance (Inches)'); 
-% ylabel('2nd Diff Voltage (V)'); 
-% grid on
-% grid minor
-% 
-% figure(8)
-% hold on
-% plot(NodeDist2,a000)
-% legend('A000'); 
+% legend('A0', 'J0'); 
 % title('2nd Diff Voltage Distribution');
 % xlabel('Node Distance (Inches)'); 
 % ylabel('2nd Diff Voltage (V)'); 
